@@ -209,6 +209,7 @@
 				230656382C82DA0D004D439B /* Sources */,
 				230656392C82DA0D004D439B /* Frameworks */,
 				2306563A2C82DA0D004D439B /* Resources */,
+				A572FED19275933BDDF19FE6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,9 +247,6 @@
 				Base,
 			);
 			mainGroup = 230656192C82D763004D439B;
-			packageReferences = (
-				23DFE7D12C847B57008CBE26 /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = 230656232C82D763004D439B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -335,6 +333,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A572FED19275933BDDF19FE6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Share/Pods-Share-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Share/Pods-Share-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Share/Pods-Share-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B0F88901C26FD2F81DF2411A /* [CP] Check Pods Manifest.lock */ = {
@@ -678,13 +693,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-		23DFE7D22C847B57008CBE26 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 23DFE7D12C847B57008CBE26 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		230656302C82D765004D439B /* SyncReady.xcdatamodeld */ = {

@@ -8,6 +8,17 @@ target 'Share' do
   #snapkit
   pod 'SnapKit', '~> 5.7.0'
   # Pods for Share
+  
+  # To recognize Latin script
+  pod 'GoogleMLKit/TextRecognition', '3.2.0'
+
+  # To recognize Korean script
+  pod 'GoogleMLKit/TextRecognitionKorean', '3.2.0'
+  
+  # OCR, AI 생성된 일정 저장 관리를 위한 DB
+  pod 'RealmSwift', '~>10'
+  
+  
 
 end
 
@@ -16,8 +27,14 @@ target 'SyncReady' do
   use_frameworks!
 
   # Pods for SyncReady
+  
+# To recognize Latin script
+pod 'GoogleMLKit/TextRecognition', '3.2.0'
 
 # To recognize Korean script
 pod 'GoogleMLKit/TextRecognitionKorean', '3.2.0'
+
+# OCR, AI 생성된 일정 저장 관리를 위한 DB
+pod 'RealmSwift', '~>10'
 
 end

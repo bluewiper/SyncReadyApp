@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-SyncReady/Pods-SyncReady-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/MLKitTextRecognition/LatinOCRResources.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/MLKitTextRecognitionKorean/KoreanOCRResources.bundle

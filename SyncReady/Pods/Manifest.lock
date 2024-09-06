@@ -5,6 +5,9 @@ PODS:
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleMLKit/MLKitCore (3.2.0):
     - MLKitCommon (~> 8.0.0)
+  - GoogleMLKit/TextRecognition (3.2.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitTextRecognition (~> 1.4.0-beta6)
   - GoogleMLKit/TextRecognitionKorean (3.2.0):
     - GoogleMLKit/MLKitCore
     - MLKitTextRecognitionKorean (~> 1.0.0-beta6)
@@ -43,6 +46,10 @@ PODS:
     - GoogleUtilitiesComponents (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.12)
+  - MLKitTextRecognition (1.4.0-beta6):
+    - MLKitCommon (~> 8.0)
+    - MLKitTextRecognitionCommon (= 1.0.0-beta6)
+    - MLKitVision (~> 4.2)
   - MLKitTextRecognitionCommon (1.0.0-beta6):
     - MLKitCommon (~> 8.0)
     - MLKitVision (~> 4.2)
@@ -64,10 +71,17 @@ PODS:
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
   - Protobuf (3.28.0)
+  - Realm (10.53.0):
+    - Realm/Headers (= 10.53.0)
+  - Realm/Headers (10.53.0)
+  - RealmSwift (10.53.0):
+    - Realm (= 10.53.0)
   - SnapKit (5.7.1)
 
 DEPENDENCIES:
+  - GoogleMLKit/TextRecognition (= 3.2.0)
   - GoogleMLKit/TextRecognitionKorean (= 3.2.0)
+  - RealmSwift (~> 10)
   - SnapKit (~> 5.7.0)
 
 SPEC REPOS:
@@ -80,12 +94,15 @@ SPEC REPOS:
     - GTMSessionFetcher
     - MLImage
     - MLKitCommon
+    - MLKitTextRecognition
     - MLKitTextRecognitionCommon
     - MLKitTextRecognitionKorean
     - MLKitVision
     - nanopb
     - PromisesObjC
     - Protobuf
+    - Realm
+    - RealmSwift
     - SnapKit
 
 SPEC CHECKSUMS:
@@ -97,14 +114,17 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   MLImage: 489dfec109f21da8621b28d476401aaf7a0d4ff4
   MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
+  MLKitTextRecognition: f6fda8923564f6cebe2bb952a1adb0414e1d731b
   MLKitTextRecognitionCommon: 0c720ee45ffedb3a34f0e8b95764d2f57a108e71
   MLKitTextRecognitionKorean: dfc0fa67510d971f49c1c56641953c32d65d7b10
   MLKitVision: 96c96571190b7f63eddf4a12068ce8a8689e0d2c
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   Protobuf: 9f10df3b9b31e47a98789ea4d2f12bb9f84de2ad
+  Realm: e3d9f52df62d7479cf921e5d70294da4fdd2081f
+  RealmSwift: 03b060aea36701f8f4bef9fd1d4f4788ae867505
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
-PODFILE CHECKSUM: 3c122113f9f42ba161086c94f97b52b5239a2b6d
+PODFILE CHECKSUM: 2878901da1f26325ac7a9b4f66521fa4d452b1e5
 
 COCOAPODS: 1.15.2
