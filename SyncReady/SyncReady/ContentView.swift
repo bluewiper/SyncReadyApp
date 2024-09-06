@@ -5,82 +5,98 @@
 //  Created by 단예진 on 8/31/24.
 //
 
+// ShareViewController Realm에 저장된 데이터 조회로 시작해야 되는 거 아닌가..? 이미 거기서 add를 했는데..
+// 마쟈용~ 이제 앱에서 조회 가능! 내용 수정할 수 있어야 함!!
+
+
+// 수정 가능한 코드
 import SwiftUI
-import CoreData
+import RealmSwift
 
+// Realm에서 저장된 Event 데이터를 가져와 ContentView에서 표시 및 수정 가능하게 함
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @State private var latestEvent: Event?  // 최근 저장된 이벤트를 저장할 상태
+    @State private var newTitle: String = ""
+    @State private var newDate: String = ""
+    @State private var newTime: String = ""
+    @State private var newLocation: String = ""
+    @State private var newDescription: String = ""
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
+        VStack {
+            if let event = latestEvent {
+                // 수정 가능한 텍스트 필드
+                VStack {
+                    TextField("타이틀", text: $newTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom, 8)
+                    TextField("날짜", text: $newDate)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom, 8)
+                    TextField("시간", text: $newTime)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom, 8)
+                    TextField("위치", text: $newLocation)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.bottom, 8)
+                    TextEditor(text: $newDescription)
+                        .frame(height: 100)
+                        .border(Color.gray)
+                        .padding(.bottom, 8)
                 }
-                .onDelete(perform: deleteItems)
+
+                // 수정 저장 버튼
+                Button(action: {
+                    updateEvent()
+                }) {
+                    Text("수정 저장")
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 8)
+            } else {
+                Text("저장된 일정이 없습니다.")
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
+        }
+        .padding()
+        .onAppear(perform: fetchLatestEvent)  // 뷰가 나타날 때 가장 최근 이벤트 불러오기
+    }
+
+    // 최근 저장된 Event 데이터를 불러오는 함수
+    func fetchLatestEvent() {
+        let realm = try! Realm(configuration: realmConfig()) // 수정된 Realm config 사용
+        if let event = realm.objects(Event.self).sorted(byKeyPath: "date", ascending: false).first {
+            latestEvent = event
+            newTitle = event.title
+            newDate = event.date
+            newTime = event.time
+            newLocation = event.location ?? ""  // 옵셔널 언래핑, 기본값 빈 문자열
+            newDescription = event.eventDescription ?? ""  // 옵셔널 언래핑, 기본값 빈 문자열
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+    // Realm에서 데이터를 수정하는 함수
+    func updateEvent() {
+        guard let event = latestEvent else { return }
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        let realm = try! Realm(configuration: realmConfig())
+        try! realm.write {
+            event.title = newTitle
+            event.date = newDate
+            event.time = newTime
+            event.location = newLocation
+            event.eventDescription = newDescription
         }
-    }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        // 데이터 업데이트 후에 다시 불러오기
+        fetchLatestEvent()
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-#Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
